@@ -44,6 +44,3 @@ A lightweight Chrome extension that removes distracting YouTube UI elements with
 
 Use the checklist in `TESTING.md` for manual verification.
 
-## License
-
-MIT (or choose your preferred license before publishing).
