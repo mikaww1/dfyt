@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Distraction Free YT</title>
+    <link rel="stylesheet" href="popup.css" />
+  </head>
+  <body>
+    <main class="popup">
+      <header class="popup-header">
+        <img src="icon.svg" alt="" class="header-icon" />
+        <div>
+          <h1>Distraction Free YT</h1>
+          <p class="subtitle">Choose what to hide on YouTube.</p>
+        </div>
+      </header>
+
+      <label class="toggle-row">
+        <span class="toggle-label">Hide Shorts</span>
+        <span class="toggle-switch">
+          <input type="checkbox" id="hideShorts" />
+          <span class="slider"></span>
+        </span>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-label">Hide Home Recommendations</span>
+        <span class="toggle-switch">
+          <input type="checkbox" id="hideHomeRecommendations" />
+          <span class="slider"></span>
+        </span>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-label">Hide Comments</span>
+        <span class="toggle-switch">
+          <input type="checkbox" id="hideComments" />
+          <span class="slider"></span>
+        </span>
+      </label>
+
+      <label class="toggle-row">
+        <span class="toggle-label">Hide Related Videos</span>
+        <span class="toggle-switch">
+          <input type="checkbox" id="hideRelatedVideos" />
+          <span class="slider"></span>
+        </span>
+      </label>
+
+      <p id="statusText" class="status" aria-live="polite"></p>
+    </main>
+
+    <script src="../src/storage.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

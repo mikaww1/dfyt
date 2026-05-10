@@ -1,0 +1,32 @@
+{
+  "manifest_version": 3,
+  "name": "Distraction Free YouTube",
+  "version": "0.1.0",
+  "description": "Hide distracting YouTube UI sections with simple toggles.",
+  "permissions": [
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "https://www.youtube.com/*",
+    "https://youtube.com/*"
+  ],
+  "action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "Distraction Free YT"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://www.youtube.com/*",
+        "https://youtube.com/*"
+      ],
+      "js": [
+        "src/storage.js",
+        "src/rules.js",
+        "src/content.js"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
