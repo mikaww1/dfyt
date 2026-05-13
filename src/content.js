@@ -55,7 +55,7 @@
 
   function scheduleFullApply() {
     scheduleState.full = true;
-    scheduleFlush(150);
+    scheduleFlush(50);
   }
 
   function scheduleIncrementalApply(roots) {
@@ -64,7 +64,7 @@
     }
     roots.forEach((node) => pendingMutationRoots.add(node));
     scheduleState.incremental = true;
-    scheduleFlush(250);
+    scheduleFlush(50);
   }
 
   function onRouteMaybeChanged() {

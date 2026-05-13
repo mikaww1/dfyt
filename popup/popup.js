@@ -9,7 +9,8 @@
     "hideShorts",
     "hideHomeRecommendations",
     "hideComments",
-    "hideRelatedVideos"
+    "hideRecommendations",
+    "hideAds"
   ];
 
   const statusText = document.getElementById("statusText");

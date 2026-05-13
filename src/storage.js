@@ -7,7 +7,9 @@
     hideShorts: true,
     hideHomeRecommendations: true,
     hideComments: false,
-    hideRelatedVideos: false
+    hideRecommendations: false,
+    hideAds: false,
+    hideEndscreenCards: false
   };
 
   function getExtensionApi() {
@@ -24,11 +26,18 @@
 
   function migrateSettings(rawSettings) {
     const input = rawSettings && typeof rawSettings === "object" ? rawSettings : {};
-    const merged = { ...DEFAULT_SETTINGS, ...input };
+    let merged = { ...DEFAULT_SETTINGS, ...input };
 
     if (!merged.schemaVersion || merged.schemaVersion < 1) {
       merged.schemaVersion = 1;
     }
+
+    // Migrate hideRelatedVideos -> hideRecommendations
+    if (input.hasOwnProperty("hideRelatedVideos") && !input.hasOwnProperty("hideRecommendations")) {
+      merged.hideRecommendations = input.hideRelatedVideos;
+    }
+    // Remove old key
+    delete merged.hideRelatedVideos;
 
     return merged;
   }

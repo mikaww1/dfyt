@@ -33,12 +33,32 @@
         { selector: "ytd-comments" }
       ]
     },
-    hideRelatedVideos: {
-      debugName: "Hide Related Videos",
-      routes: ["watch"],
+    hideRecommendations: {
+      debugName: "Hide Recommendations",
+      routes: ["home", "watch"],
       targets: [
         { selector: "#secondary" },
-        { selector: "ytd-watch-next-secondary-results-renderer" }
+        { selector: "ytd-watch-next-secondary-results-renderer" },
+        { selector: "ytp-endscreen-container" },
+        { selector: ".ytp-endscreen-element" }
+      ]
+    },
+    hideAds: {
+      debugName: "Hide Ads",
+      routes: ["all"],
+      targets: [
+        { selector: "ytd-ad-slot-renderer" },
+        { selector: "div[data-ad-slot-index]" },
+        { selector: "ytp-ad-message-container" },
+        { selector: "div.ytp-ad-player-overlay" }
+      ]
+    },
+    hideEndscreenCards: {
+      debugName: "Hide Endscreen Cards",
+      routes: ["watch"],
+      targets: [
+        { selector: "ytp-endscreen-container" },
+        { selector: ".ytp-endscreen-element" }
       ]
     }
   };
@@ -55,6 +75,11 @@
       }
     `;
     document.documentElement.appendChild(style);
+  }
+
+  function isWatchingFromPlaylist() {
+    const url = new URL(location.href);
+    return url.searchParams.has("list");
   }
 
   function getRouteKey() {
@@ -126,13 +151,28 @@
     return matches;
   }
 
+  function getApplicableTargets(ruleKey, targets) {
+    // When watching from a playlist, only hide the recommendations section
+    // (ytd-watch-next-secondary-results-renderer), not the playlist queue
+    if (ruleKey === "hideRecommendations" && isWatchingFromPlaylist()) {
+      return [
+        { selector: "ytd-watch-next-secondary-results-renderer" },
+        { selector: "ytp-endscreen-container" },
+        { selector: ".ytp-endscreen-element" }
+      ];
+    }
+    return targets;
+  }
+
   function applyRuleFull(ruleKey, rule, devMode) {
     const known = getRuleSet(ruleKey);
     const nextNodes = new Set();
     let matches = 0;
     let hidden = 0;
 
-    rule.targets.forEach((targetDef) => {
+    const applicableTargets = getApplicableTargets(ruleKey, rule.targets);
+
+    applicableTargets.forEach((targetDef) => {
       const nodes = document.querySelectorAll(targetDef.selector);
       matches += nodes.length;
       nodes.forEach((node) => {
@@ -169,8 +209,10 @@
     let matches = 0;
     let hidden = 0;
 
+    const applicableTargets = getApplicableTargets(ruleKey, rule.targets);
+
     mutationRoots.forEach((root) => {
-      rule.targets.forEach((targetDef) => {
+      applicableTargets.forEach((targetDef) => {
         const candidates = matchesFromRoot(root, targetDef.selector);
         matches += candidates.length;
         candidates.forEach((candidate) => {
