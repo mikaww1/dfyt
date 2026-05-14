@@ -23,6 +23,7 @@
         "https://youtube.com/*"
       ],
       "js": [
+        "src/config.js",
         "src/storage.js",
         "src/rules.js",
         "src/content.js"

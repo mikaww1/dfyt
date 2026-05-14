@@ -248,6 +248,13 @@
     const report = {};
 
     Object.keys(RULES).forEach((ruleKey) => {
+      // Check feature flag for hideAds
+      if (ruleKey === "hideAds" && !window.DFYT_CONFIG?.HIDE_ADS_ENABLED) {
+        clearRule(ruleKey);
+        report[ruleKey] = { enabled: false, matches: 0, hidden: 0 };
+        return;
+      }
+      
       const enabled = Boolean(settings[ruleKey]);
       const routeActive = isRuleActiveOnRoute(RULES[ruleKey], routeKey);
       if (!enabled || !routeActive) {
