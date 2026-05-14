@@ -23,24 +23,6 @@ body {
   margin-bottom: 16px;
 }
 
-.header-icon-wrap {
-  width: 32px;
-  height: 32px;
-  background: #ff0000;
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-  margin-top: 1px;
-}
-
-.header-icon {
-  width: 17px;
-  height: 17px;
-  fill: #ffffff;
-}
-
 .header-text {
   flex: 1;
   min-width: 0;
