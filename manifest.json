@@ -2,7 +2,7 @@
   "manifest_version": 3,
   "name": "Distraction Free YouTube",
   "version": "0.1.0",
-  "description": "Take control of YouTube. Hide Shorts, home recommendations, comments, and related videos with simple toggles. Clean, distraction-free YouTube for better focus.",
+  "description": "Hide Shorts, recommendations, and comments with simple toggles. Take control of YouTube and stay focused.",
   "permissions": [
     "storage",
     "tabs"
