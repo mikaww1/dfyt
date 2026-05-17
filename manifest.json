@@ -1,8 +1,8 @@
 {
   "manifest_version": 3,
-  "name": "Distraction Free YouTube",
-  "version": "0.1.0",
-  "description": "Hide Shorts, recommendations, and comments with simple toggles. Take control of YouTube and stay focused.",
+  "name": "Block YouTube Shorts & Recommendations",
+  "version": "0.2.0",
+  "description": "Hide Shorts, recommendations, comments, and other distracting elements on YouTube.",
   "permissions": [
     "storage",
     "tabs"
