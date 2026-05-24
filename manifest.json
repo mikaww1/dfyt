@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Block YouTube Shorts & Recommendations",
-  "version": "0.3.1",
+  "version": "0.2.4",
   "description": "Hide Shorts, recommendations, comments, and other distracting elements on YouTube.",
   "permissions": [
     "storage",
