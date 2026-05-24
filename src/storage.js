@@ -8,7 +8,7 @@
     hideHomeRecommendations: false,
     hideComments: false,
     hideRecommendations: false,
-    hideAds: false,
+    hideAds: true,
     hideEndscreenCards: false
   };
 

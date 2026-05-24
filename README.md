@@ -16,9 +16,13 @@ A lightweight Chrome extension that removes distracting YouTube UI elements with
 
 - `manifest.json` - extension manifest (MV3)
 - `src/config.js` - feature flag configuration
+- `background.js` - service worker; enables network ad rules when Hide Ads is on
 - `src/content.js` - content script runtime and observer scheduler
 - `src/rules.js` - DOM hide rules and route-aware application
+- `src/ads-feed.js` - sponsored/promoted feed item detection
+- `src/ads-player.js` - in-player ad skip and fast-forward
 - `src/storage.js` - settings persistence layer
+- `rules/dnr-rules.json` - declarativeNetRequest block list (full build)
 - `popup/popup.html` - popup UI
 - `popup/popup.css` - popup styles
 - `popup/popup.js` - popup logic and messaging
@@ -43,17 +47,15 @@ A lightweight Chrome extension that removes distracting YouTube UI elements with
 
 The extension supports feature flags via `src/config.js` to build different versions:
 
-#### Hide Ads Toggle
+#### Feature flags (`src/config.js`)
 
-By default, ad hiding is **disabled** for Chrome Web Store compliance. To enable it:
+| Flag | Store-safe build | Full build |
+|------|------------------|------------|
+| `HIDE_ADS_ENABLED` | `false` | `true` |
+| `NETWORK_AD_BLOCK_ENABLED` | `false` | `true` |
 
-1. Open `src/config.js`
-2. Change `HIDE_ADS_ENABLED: false` to `HIDE_ADS_ENABLED: true`
-3. The "Hide Ads" toggle will appear in the popup UI
-
-**Use cases:**
-- **Store version** (`HIDE_ADS_ENABLED: false`): Safe for Chrome Web Store submission
-- **Personal version** (`HIDE_ADS_ENABLED: true`): Full feature set with ad hiding
+- **Store version**: No ad toggle, no DOM/network ad blocking.
+- **Full version**: Hide Ads toggle (on by default), expanded DOM hiding, in-player skip/fast-forward, promoted-feed detection, and optional `declarativeNetRequest` rules (enabled when Hide Ads is on).
 
 ## Notes
 

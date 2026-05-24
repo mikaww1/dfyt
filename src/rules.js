@@ -48,9 +48,28 @@
       routes: ["all"],
       targets: [
         { selector: "ytd-ad-slot-renderer" },
+        { selector: "ytd-in-feed-ad-layout-renderer" },
         { selector: "div[data-ad-slot-index]" },
+        { selector: "ytd-display-ad-renderer" },
+        { selector: "ytd-promoted-sparkles-web-renderer" },
+        { selector: "ytd-promoted-video-renderer" },
+        { selector: "ytd-video-masthead-ad-v3-renderer" },
+        { selector: "ytd-banner-promo-renderer" },
+        { selector: "ytd-compact-promoted-item-renderer" },
+        { selector: "ytd-promoted-sparkles-text-search-renderer" },
+        { selector: "ytd-search-pyv-ad-renderer" },
+        { selector: "ytd-companion-slot-renderer" },
+        { selector: "ytd-action-companion-ad-renderer" },
+        { selector: "ytd-player-legacy-desktop-watch-ads-renderer" },
+        { selector: "ytd-engagement-panel-section-list-renderer[target-id*='ads']" },
+        { selector: "#player-ads" },
+        { selector: ".video-ads" },
+        { selector: ".ytp-ad-module" },
         { selector: "ytp-ad-message-container" },
-        { selector: "div.ytp-ad-player-overlay" }
+        { selector: "div.ytp-ad-player-overlay" },
+        { selector: ".ytp-ad-progress-list" },
+        { selector: ".ytp-ad-preview-container" },
+        { selector: ".ytp-ad-image-overlay" }
       ]
     },
     hideEndscreenCards: {
@@ -249,7 +268,7 @@
 
     Object.keys(RULES).forEach((ruleKey) => {
       // Check feature flag for hideAds
-      if (ruleKey === "hideAds" && !window.DFYT_CONFIG?.HIDE_ADS_ENABLED) {
+      if (ruleKey === "hideAds" && !globalThis.DFYT_CONFIG?.HIDE_ADS_ENABLED) {
         clearRule(ruleKey);
         report[ruleKey] = { enabled: false, matches: 0, hidden: 0 };
         return;

@@ -9,7 +9,7 @@
     "hideHomeRecommendations",
     "hideComments",
     "hideRecommendations",
-    ...(window.DFYT_CONFIG?.HIDE_ADS_ENABLED ? ["hideAds"] : [])
+    ...(globalThis.DFYT_CONFIG?.HIDE_ADS_ENABLED ? ["hideAds"] : [])
   ];
 
   const filterChip = document.getElementById("filterChip");
@@ -52,7 +52,7 @@
   });
 
   // Hide ads row if feature flag is disabled
-  if (!window.DFYT_CONFIG?.HIDE_ADS_ENABLED) {
+  if (!globalThis.DFYT_CONFIG?.HIDE_ADS_ENABLED) {
     const adsRow = document.getElementById("hideAdsRow");
     if (adsRow) {
       adsRow.style.display = "none";
