@@ -1,9 +1,6 @@
-// Feature flags for store-safe vs full builds (works in page + service worker via globalThis)
+// Feature flag: false = store-safe build (no Hide Ads toggle or rules)
 var DFYT_CONFIG = {
-  // false = no ad UI in popup, no ad rules, no player mitigation
-  HIDE_ADS_ENABLED: true,
-  // false = no declarativeNetRequest ad blocking (store-safe)
-  NETWORK_AD_BLOCK_ENABLED: true
+  HIDE_ADS_ENABLED: true
 };
 
 if (typeof globalThis !== "undefined") {

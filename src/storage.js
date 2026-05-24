@@ -8,8 +8,7 @@
     hideHomeRecommendations: false,
     hideComments: false,
     hideRecommendations: false,
-    hideAds: true,
-    hideEndscreenCards: false
+    hideAds: true
   };
 
   function getExtensionApi() {
@@ -38,6 +37,7 @@
     }
     // Remove old key
     delete merged.hideRelatedVideos;
+    delete merged.hideEndscreenCards;
 
     return merged;
   }

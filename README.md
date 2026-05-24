@@ -8,7 +8,7 @@ A lightweight Chrome extension that removes distracting YouTube UI elements with
 - Hide Home Recommendations
 - Hide Comments
 - Hide Related Videos & Endscreen Cards
-- Hide Ads (optional, configurable)
+- Hide Ads (feed, banners, companions, player ad overlays — DOM only)
 - Persistent settings with instant toggle updates
 - SPA-aware behavior for YouTube navigation
 
@@ -16,16 +16,12 @@ A lightweight Chrome extension that removes distracting YouTube UI elements with
 
 - `manifest.json` - extension manifest (MV3)
 - `src/config.js` - feature flag configuration
-- `background.js` - service worker; enables network ad rules when Hide Ads is on
 - `src/content.js` - content script runtime and observer scheduler
 - `src/rules.js` - DOM hide rules and route-aware application
-- `src/ads-feed.js` - sponsored/promoted feed item detection
-- `src/ads-player.js` - in-player ad skip and fast-forward
 - `src/storage.js` - settings persistence layer
-- `rules/dnr-rules.json` - declarativeNetRequest block list (full build)
 - `popup/popup.html` - popup UI
 - `popup/popup.css` - popup styles
-- `popup/popup.js` - popup logic and messaging
+- `popup/popup.js` - popup logic
 
 ## Install (Developer Mode)
 
@@ -43,26 +39,19 @@ A lightweight Chrome extension that removes distracting YouTube UI elements with
 
 ## Configuration
 
-### Feature Flags
+### Hide Ads toggle
 
-The extension supports feature flags via `src/config.js` to build different versions:
+Set `HIDE_ADS_ENABLED` in `src/config.js`:
 
-#### Feature flags (`src/config.js`)
+- `true` — Shows the Ads toggle and hides ad UI in feeds and on the page (default).
+- `false` — Store-safe build without ad hiding.
 
-| Flag | Store-safe build | Full build |
-|------|------------------|------------|
-| `HIDE_ADS_ENABLED` | `false` | `true` |
-| `NETWORK_AD_BLOCK_ENABLED` | `false` | `true` |
-
-- **Store version**: No ad toggle, no DOM/network ad blocking.
-- **Full version**: Hide Ads toggle (on by default), expanded DOM hiding, in-player skip/fast-forward, promoted-feed detection, and optional `declarativeNetRequest` rules (enabled when Hide Ads is on).
+**Note:** Ads are hidden with CSS (`display: none`) on matching elements. This works well for home feed, search, and sidebar ads. In-video pre-roll may still play sometimes; hiding the player ad container breaks playback, so this build does not do that.
 
 ## Notes
 
 - Built for Chrome first (MV3), with structure that can be adapted for other Chromium browsers.
-- Ad hiding is feature-flagged and must be explicitly enabled in `src/config.js`
 
 ## Testing
 
 Use the checklist in `TESTING.md` for manual verification.
-

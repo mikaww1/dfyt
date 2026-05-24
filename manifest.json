@@ -4,29 +4,12 @@
   "version": "0.2.4",
   "description": "Hide Shorts, recommendations, comments, and other distracting elements on YouTube.",
   "permissions": [
-    "storage",
-    "declarativeNetRequest"
+    "storage"
   ],
   "host_permissions": [
     "https://www.youtube.com/*",
-    "https://youtube.com/*",
-    "https://*.googlevideo.com/*",
-    "https://*.doubleclick.net/*",
-    "https://*.googleadservices.com/*",
-    "https://*.googlesyndication.com/*"
+    "https://youtube.com/*"
   ],
-  "background": {
-    "service_worker": "background.js"
-  },
-  "declarative_net_request": {
-    "rule_resources": [
-      {
-        "id": "dfyt_block_ads",
-        "enabled": false,
-        "path": "rules/dnr-rules.json"
-      }
-    ]
-  },
   "icons": {
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
@@ -52,8 +35,6 @@
         "src/config.js",
         "src/storage.js",
         "src/rules.js",
-        "src/ads-feed.js",
-        "src/ads-player.js",
         "src/content.js"
       ],
       "run_at": "document_start"

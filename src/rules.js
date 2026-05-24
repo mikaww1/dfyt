@@ -53,34 +53,69 @@
         { selector: "ytd-display-ad-renderer" },
         { selector: "ytd-promoted-sparkles-web-renderer" },
         { selector: "ytd-promoted-video-renderer" },
-        { selector: "ytd-video-masthead-ad-v3-renderer" },
         { selector: "ytd-banner-promo-renderer" },
         { selector: "ytd-compact-promoted-item-renderer" },
-        { selector: "ytd-promoted-sparkles-text-search-renderer" },
         { selector: "ytd-search-pyv-ad-renderer" },
         { selector: "ytd-companion-slot-renderer" },
         { selector: "ytd-action-companion-ad-renderer" },
         { selector: "ytd-player-legacy-desktop-watch-ads-renderer" },
-        { selector: "ytd-engagement-panel-section-list-renderer[target-id*='ads']" },
-        { selector: "#player-ads" },
-        { selector: ".video-ads" },
-        { selector: ".ytp-ad-module" },
+        { selector: "ytd-in-player-ad-layout-renderer" },
+        { selector: "ytd-player-augmented-ad-layout-renderer" },
+        { selector: "ytd-engagement-panel-section-list-renderer[target-id='engagement-panel-ads']" },
+        { selector: ".ytp-ad-overlay-container" },
+        { selector: ".ytp-ad-overlay-slot" },
+        { selector: ".ytp-ad-text-overlay" },
+        { selector: ".ytp-ad-image-overlay" },
+        { selector: ".ytp-ad-action-interstitial" },
         { selector: "ytp-ad-message-container" },
         { selector: "div.ytp-ad-player-overlay" },
-        { selector: ".ytp-ad-progress-list" },
-        { selector: ".ytp-ad-preview-container" },
-        { selector: ".ytp-ad-image-overlay" }
-      ]
-    },
-    hideEndscreenCards: {
-      debugName: "Hide Endscreen Cards",
-      routes: ["watch"],
-      targets: [
-        { selector: "ytp-endscreen-container" },
-        { selector: ".ytp-endscreen-element" }
+        { selector: ".ytp-ad-player-overlay-instream-info" },
+        { selector: ".ytp-ad-visit-advertiser-button" }
       ]
     }
   };
+
+  function injectAdOverlayStyles() {
+    if (document.getElementById("dfyt-ad-overlay-style")) {
+      return;
+    }
+    const style = document.createElement("style");
+    style.id = "dfyt-ad-overlay-style";
+    // Overlay / card ads on the player — NOT #player-ads or .video-ads (those stall playback).
+    style.textContent = `
+      .ytp-ad-overlay-container,
+      .ytp-ad-overlay-slot,
+      .ytp-ad-text-overlay,
+      .ytp-ad-image-overlay,
+      .ytp-ad-action-interstitial,
+      .ytp-ad-action-interstitial-background,
+      .ytp-ad-player-overlay-instream-info,
+      .ytp-ad-visit-advertiser-button,
+      ytd-in-player-ad-layout-renderer,
+      ytd-player-augmented-ad-layout-renderer,
+      ytd-player-legacy-desktop-watch-ads-renderer,
+      ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"] {
+        display: none !important;
+        visibility: hidden !important;
+        pointer-events: none !important;
+      }
+    `;
+    document.documentElement.appendChild(style);
+  }
+
+  function removeAdOverlayStyles() {
+    document.getElementById("dfyt-ad-overlay-style")?.remove();
+  }
+
+  function syncAdOverlayStyles(settings) {
+    const adsOn =
+      Boolean(globalThis.DFYT_CONFIG?.HIDE_ADS_ENABLED) && Boolean(settings && settings.hideAds);
+    if (adsOn) {
+      injectAdOverlayStyles();
+    } else {
+      removeAdOverlayStyles();
+    }
+  }
 
   function injectBaseStyles() {
     if (document.getElementById("dfyt-style")) {
@@ -201,9 +236,9 @@
     });
 
     nextNodes.forEach((node) => {
-      node.classList.add(HIDDEN_CLASS);
-      node.setAttribute(HIDDEN_ATTR, ruleKey);
-      if (!known.has(node)) {
+      if (!node.classList.contains(HIDDEN_CLASS)) {
+        node.classList.add(HIDDEN_CLASS);
+        node.setAttribute(HIDDEN_ATTR, ruleKey);
         hidden += 1;
       }
       known.add(node);
@@ -239,10 +274,12 @@
           if (known.has(targetNode)) {
             return;
           }
-          targetNode.classList.add(HIDDEN_CLASS);
-          targetNode.setAttribute(HIDDEN_ATTR, ruleKey);
+          if (!targetNode.classList.contains(HIDDEN_CLASS)) {
+            targetNode.classList.add(HIDDEN_CLASS);
+            targetNode.setAttribute(HIDDEN_ATTR, ruleKey);
+            hidden += 1;
+          }
           known.add(targetNode);
-          hidden += 1;
         });
       });
     });
@@ -258,6 +295,7 @@
 
   function applyEnabledRules(settings, options) {
     injectBaseStyles();
+    syncAdOverlayStyles(settings);
     const devMode = Boolean(options && options.devMode);
     const mode = (options && options.mode) || "full";
     const routeKey = (options && options.routeKey) || getRouteKey();
