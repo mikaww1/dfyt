@@ -4,8 +4,7 @@
   "version": "0.2.2",
   "description": "Hide Shorts, recommendations, comments, and other distracting elements on YouTube.",
   "permissions": [
-    "storage",
-    "tabs"
+    "storage"
   ],
   "host_permissions": [
     "https://www.youtube.com/*",

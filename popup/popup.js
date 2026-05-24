@@ -4,7 +4,6 @@
     return;
   }
 
-  const extApi = storageApi.getExtensionApi();
   const toggleKeys = [
     "hideShorts",
     "hideHomeRecommendations",
@@ -31,40 +30,6 @@
     }, {});
   }
 
-  async function notifyActiveYoutubeTab(settings) {
-    const tabs = await new Promise((resolve) => {
-      extApi.tabs.query({ active: true, currentWindow: true }, (result) => {
-        resolve(result || []);
-      });
-    });
-
-    const activeTab = tabs[0];
-    if (!activeTab || !activeTab.id || !activeTab.url) {
-      return;
-    }
-
-    const isYoutubeTab = /https:\/\/(www\.)?youtube\.com\//.test(activeTab.url);
-    if (!isYoutubeTab) {
-      return;
-    }
-
-    const message = {
-      type: "DFYT_SETTINGS_UPDATED",
-      settings
-    };
-
-    try {
-      extApi.tabs.sendMessage(activeTab.id, message, () => {
-        const error = extApi.runtime && extApi.runtime.lastError;
-        if (error) {
-          return;
-        }
-      });
-    } catch (_error) {
-      // Ignore transient messaging failures from popup context.
-    }
-  }
-
   async function syncUi() {
     const settings = await storageApi.getSettings();
     toggleKeys.forEach((key) => {
@@ -77,8 +42,7 @@
 
   async function onToggleChange() {
     updateChip();
-    const next = await storageApi.updateSettings(readFormValues());
-    await notifyActiveYoutubeTab(next);
+    await storageApi.updateSettings(readFormValues());
   }
 
   toggleKeys.forEach((key) => {
