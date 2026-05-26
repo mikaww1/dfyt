@@ -35,6 +35,7 @@
         "src/config.js",
         "src/storage.js",
         "src/rules.js",
+        "src/ad-skipper.js",
         "src/content.js"
       ],
       "run_at": "document_start"

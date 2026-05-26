@@ -329,6 +329,15 @@
     return report;
   }
 
+  // Eagerly inject ad overlay CSS at document_start before settings load.
+  // hideAds defaults to true, so block overlay ads immediately to close the
+  // timing gap caused by the async chrome.storage.local read in content.js.
+  // If the user has hideAds disabled, syncAdOverlayStyles will remove the
+  // stylesheet once settings are loaded.
+  if (globalThis.DFYT_CONFIG?.HIDE_ADS_ENABLED) {
+    injectAdOverlayStyles();
+  }
+
   window.DFYTRules = {
     RULES,
     HIDDEN_CLASS,

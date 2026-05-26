@@ -6,6 +6,7 @@
 
   const storageApi = window.DFYTStorage;
   const rulesApi = window.DFYTRules;
+  const adSkipper = window.DFYTAdSkipper;
 
   if (!storageApi || !rulesApi) {
     console.error("[DFYT] Missing storage or rules module.");
@@ -22,6 +23,16 @@
     incremental: false
   };
   let flushTimerId = null;
+
+  function syncAdSkipper() {
+    if (!adSkipper) {
+      return;
+    }
+    var adsEnabled =
+      Boolean(globalThis.DFYT_CONFIG?.HIDE_ADS_ENABLED) &&
+      Boolean(cachedSettings && cachedSettings.hideAds);
+    adSkipper.setEnabled(adsEnabled);
+  }
 
   async function runRules(mode) {
     if (!cachedSettings) {
@@ -137,6 +148,7 @@
         return;
       }
       cachedSettings = message.settings || cachedSettings;
+      syncAdSkipper();
       scheduleFullApply();
     });
   }
@@ -144,13 +156,20 @@
   function setupStorageListener() {
     storageApi.onStorageChange((nextSettings) => {
       cachedSettings = nextSettings;
+      syncAdSkipper();
       scheduleFullApply();
     });
   }
 
   async function boot() {
     rulesApi.injectBaseStyles();
+
+    if (adSkipper && globalThis.DFYT_CONFIG?.HIDE_ADS_ENABLED) {
+      adSkipper.start();
+    }
+
     cachedSettings = await storageApi.getSettings();
+    syncAdSkipper();
     await runRules("full");
     setupObservers();
     setupStartupStabilityPass();
