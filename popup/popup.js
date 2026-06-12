@@ -8,8 +8,7 @@
     "hideShorts",
     "hideHomeRecommendations",
     "hideComments",
-    "hideRecommendations",
-    ...(globalThis.DFYT_CONFIG?.HIDE_ADS_ENABLED ? ["hideAds"] : [])
+    "hideRecommendations"
   ];
 
   const filterChip = document.getElementById("filterChip");
@@ -50,14 +49,6 @@
       controls[key].addEventListener("change", onToggleChange);
     }
   });
-
-  // Hide ads row if feature flag is disabled
-  if (!globalThis.DFYT_CONFIG?.HIDE_ADS_ENABLED) {
-    const adsRow = document.getElementById("hideAdsRow");
-    if (adsRow) {
-      adsRow.style.display = "none";
-    }
-  }
 
   syncUi().catch((error) => {
     console.error("[DFYT] Failed to load popup settings:", error);

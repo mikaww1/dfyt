@@ -27,14 +27,6 @@
 2. Confirm hidden sections stay hidden after in-site navigation.
 3. Use browser Back/Forward and verify rules re-apply.
 
-## Ad hiding checks (`HIDE_ADS_ENABLED` true)
-1. Confirm **Ads** toggle is on in the popup.
-2. Home: scroll feed — in-feed ad cards and promos should be hidden.
-3. Search: run a query — promoted ad rows should be hidden where detected.
-4. Watch: sidebar companion/banner ad areas should be hidden; page should load smoothly (no freeze).
-5. Toggle **Ads** off — ad tiles can reappear after refresh or navigation.
-6. SPA: navigate Home → Watch → Search without full reload; hidden sections stay hidden.
-
 ## Regression checks
 1. Disable all toggles.
 2. Confirm comments, related videos, and home feed return normally.

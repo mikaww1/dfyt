@@ -1,4 +1,4 @@
-# Distraction Free YouTube
+# Distraction Free YT
 
 A lightweight Chrome extension that removes distracting YouTube UI elements with simple toggles.
 
@@ -8,14 +8,12 @@ A lightweight Chrome extension that removes distracting YouTube UI elements with
 - Hide Home Recommendations
 - Hide Comments
 - Hide Related Videos & Endscreen Cards
-- Hide Ads (feed, banners, companions, player ad overlays — DOM only)
 - Persistent settings with instant toggle updates
 - SPA-aware behavior for YouTube navigation
 
 ## Project Structure
 
 - `manifest.json` - extension manifest (MV3)
-- `src/config.js` - feature flag configuration
 - `src/content.js` - content script runtime and observer scheduler
 - `src/rules.js` - DOM hide rules and route-aware application
 - `src/storage.js` - settings persistence layer
@@ -36,17 +34,6 @@ A lightweight Chrome extension that removes distracting YouTube UI elements with
 2. Click the extension icon.
 3. Toggle any option on/off.
 4. Changes apply automatically and are saved.
-
-## Configuration
-
-### Hide Ads toggle
-
-Set `HIDE_ADS_ENABLED` in `src/config.js`:
-
-- `true` — Shows the Ads toggle and hides ad UI in feeds and on the page (default).
-- `false` — Store-safe build without ad hiding.
-
-**Note:** Ads are hidden with CSS (`display: none`) on matching elements. This works well for home feed, search, and sidebar ads. In-video pre-roll may still play sometimes; hiding the player ad container breaks playback, so this build does not do that.
 
 ## Notes
 
