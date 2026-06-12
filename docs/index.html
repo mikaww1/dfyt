@@ -9,6 +9,7 @@
   <meta property="og:title" content="Distraction Free YouTube" />
   <meta property="og:description" content="You opened YouTube to watch one thing. You know how this ends. Take back control." />
   <meta property="og:type" content="website" />
+  <meta property="og:image" content="images/promo-tile.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
@@ -206,6 +207,80 @@
       color: var(--muted2);
     }
     .ticker-item span { color: var(--red); margin-right: 48px; }
+
+    /* SHOWCASE */
+    .showcase {
+      padding: 100px 24px 80px;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    .showcase-label {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 20px;
+    }
+    .showcase h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(40px, 6vw, 72px);
+      line-height: 1;
+      letter-spacing: 0.03em;
+      color: #fff;
+      margin-bottom: 16px;
+    }
+    .showcase h2 em { font-style: normal; color: var(--red); }
+    .showcase-sub {
+      font-size: 17px;
+      color: var(--muted);
+      font-weight: 300;
+      line-height: 1.7;
+      max-width: 560px;
+      margin: 0 auto 40px;
+    }
+    .showcase-frame {
+      position: relative;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      background: var(--card);
+      box-shadow:
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 24px 80px rgba(0,0,0,0.55),
+        0 0 120px rgba(255,34,0,0.06);
+    }
+    .showcase-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+    .compare {
+      padding: 80px 24px 100px;
+      max-width: 1100px;
+      margin: 0 auto;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+    .compare-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 40px;
+    }
+    .compare-item {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .compare-item figcaption {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted2);
+    }
 
     /* TRUTH SECTION */
     .truth {
@@ -430,6 +505,8 @@
       nav { padding: 16px 20px; }
       .stats { gap: 40px; }
       footer { padding: 24px 20px; }
+      .compare-grid { grid-template-columns: 1fr; }
+      .showcase { padding-top: 72px; }
     }
   </style>
 </head>
@@ -451,6 +528,7 @@
         Add to Chrome — It's Free
       </a>
       <a href="#how" class="btn-secondary">How it works →</a>
+      <a href="#screenshots" class="btn-secondary">See examples →</a>
     </div>
     <p class="hero-note">No account. No tracking. Nothing leaves your browser.</p>
   </section>
@@ -467,6 +545,21 @@
       <span class="ticker-item">Your Rules <span>✕</span></span>
     </div>
   </div>
+
+  <section class="showcase reveal" id="screenshots">
+    <p class="showcase-label">See it in action</p>
+    <h2>Your YouTube.<br><em>Your rules.</em></h2>
+    <p class="showcase-sub">Toggle Shorts, home recommendations, comments, and related videos independently. Settings save instantly and apply across every YouTube page.</p>
+    <figure class="showcase-frame">
+      <img
+        src="images/promo-tile.png"
+        alt="Distraction Free YT popup showing four active filters hiding Shorts, home recommendations, comments, and related videos on YouTube"
+        width="1200"
+        height="675"
+        loading="eager"
+      />
+    </figure>
+  </section>
 
   <section class="truth reveal">
     <h2>YouTube is <em>designed</em><br>to waste your time.</h2>
@@ -497,13 +590,45 @@
         <p>The sidebar that has stolen more hours than anything else online. Gone.</p>
       </div>
       <div class="feature-card reveal">
-        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
-        <h3>Home Feed</h3>
-        <p>The endless homepage grid pulling you into another hour. Gone.</p>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M10 4v16"/></svg>
+        <h3>Endscreen Cards</h3>
+        <p>The recommended videos plastered over the player when a video ends. Hidden.</p>
       </div>
       <div class="feature-card reveal" style="background: #0f0f0f; display:flex; align-items:center; justify-content:center;">
         <p style="font-size:13px; color: var(--muted2); text-align:center; line-height:1.8;">Toggle each one<br>independently.<br>Your YouTube.<br><strong style="color:var(--red)">Your rules.</strong></p>
       </div>
+    </div>
+  </section>
+
+  <section class="compare reveal">
+    <p class="showcase-label">Endscreen cards</p>
+    <h2>Before &amp; <em>after</em></h2>
+    <p class="showcase-sub">Related videos and end cards cover the player the moment a video finishes. Hide them and actually reach the end of what you came to watch.</p>
+    <div class="compare-grid">
+      <figure class="compare-item">
+        <div class="showcase-frame">
+          <img
+            src="images/endscreen-before.png"
+            alt="YouTube end screen before: recommended video cards covering the player"
+            width="960"
+            height="540"
+            loading="lazy"
+          />
+        </div>
+        <figcaption>Before</figcaption>
+      </figure>
+      <figure class="compare-item">
+        <div class="showcase-frame">
+          <img
+            src="images/endscreen-after.png"
+            alt="YouTube end screen after: end cards hidden with a small Show button"
+            width="960"
+            height="540"
+            loading="lazy"
+          />
+        </div>
+        <figcaption>After</figcaption>
+      </figure>
     </div>
   </section>
 
